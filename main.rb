@@ -4,4 +4,4 @@ my_game = Game.new
 
 my_game.play
 
-# everthing is good
+# everthing is good oh yea
