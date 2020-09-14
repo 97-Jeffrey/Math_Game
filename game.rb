@@ -18,20 +18,46 @@ class Game
   end
 
   def next_round
-    puts "------new turn--------"
+    
+    puts "------ NEXT TERM --------"
+    @players.rotate!
   end
 
+  def game_status
+    puts "  P1: #{@player1.lives}/3, P2: #{@player2.lives}/3"
+  end
+
+  def game_over
+    @players.select {|player| player.dead?}.count>0
+  end
+
+  def winner
+    winner  = @players.find {|player| !player.dead?}
+    puts "#{winner.name} wins with a score of #{winner.lives}/3"
+    puts " ---- GAME OVER -----"
+    puts "Good bye!"
+  end
+
+
   def play
-    rm = random_number
-    rm2 = random_number2
-    puts "#{@players[0].name}: what does #{rm} plus #{rm2} equal?"
-    print ">" 
-    number = gets.chomp.to_i
-    total = rm + rm2
-    if number != total
+
+   while(!game_over) do
+     rm = random_number
+     rm2 = random_number2
+     puts "#{@players[0].name}: what does #{rm} plus #{rm2} equal?"
+     print ">" 
+     number = gets.chomp.to_i
+     total = rm + rm2
+     if number != total
       puts "#{@players[0].name}: Seriously? No!"
+      @players[0].wrong_answer
      else
       puts "#{@players[0].name}: YES! You are correct."
+     end
+     game_status
+     next_round
     end
+   winner
   end
+
 end
