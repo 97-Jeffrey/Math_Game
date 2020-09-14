@@ -37,25 +37,29 @@ class Game
     puts " ---- GAME OVER -----"
     puts "Good bye!"
   end
-
-
-  def play
-
-   while(!game_over) do
-     rm = random_number
-     rm2 = random_number2
-     puts "#{@players[0].name}: what does #{rm} plus #{rm2} equal?"
-     print ">" 
-     number = gets.chomp.to_i
-     total = rm + rm2
-     if number != total
+  
+  def evaluate(number, rm1, rm2)
+    if number != rm1 + rm2
       puts "#{@players[0].name}: Seriously? No!"
       @players[0].wrong_answer
      else
       puts "#{@players[0].name}: YES! You are correct."
      end
-     game_status
-     next_round
+  end
+
+  def play
+
+    while(!game_over) do
+     rm = random_number
+     rm2 = random_number2
+     puts "#{@players[0].name}: what does #{rm} plus #{rm2} equal?"
+     print ">" 
+     number = gets.chomp.to_i
+     evaluate(number, rm, rm2)
+     if !game_over
+      game_status
+      next_round
+     end
     end
    winner
   end
