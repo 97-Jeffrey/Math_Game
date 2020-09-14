@@ -14,4 +14,5 @@ class Player
     @lives -=1
   end
 
+  
 end
